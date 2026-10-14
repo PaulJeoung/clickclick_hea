@@ -1,11 +1,14 @@
-from datetime import datetime
 import tkinter as tk
+from datetime import datetime
 
 class Logger:
     def __init__(self, text_widget: tk.Text):
-        self.console = text_widget
+        self.widget = text_widget
 
     def log(self, message: str):
-        ts = datetime.now().strftime("%H:%M:%S")
-        self.console.insert(tk.END, f"[{ts}] {message}\n")
-        self.console.see(tk.END)
+        timestamp = datetime.now().strftime("[%H:%M:%S] ")
+        formatted = f"{timestamp}{message}\n"
+        self.widget.configure(state="normal")
+        self.widget.insert(tk.END, formatted)
+        self.widget.see(tk.END)
+        self.widget.configure(state="disabled")
